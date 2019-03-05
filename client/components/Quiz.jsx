@@ -11,8 +11,8 @@ class Quiz extends React.Component {
             scoreUpdated:false,
             checked: false,
             submitted:false,
-            selectedOption:''
-
+            selectedOption:'',
+            message:''
         }
     }
     componentDidMount(){
@@ -70,7 +70,13 @@ class Quiz extends React.Component {
                 scoreUpdated:false
             }) 
         }
+        else if (this.state.index+1 === this.props.questions.length ){
+            this.setState ({
+                message: 'Congratulation! You have completed all the quiz questions! Well done!'
+            })
+        }
     }
+
     render(){
         const quiz = this.props.questions
         const ids = quiz.map(question=>question.id)
@@ -81,8 +87,10 @@ class Quiz extends React.Component {
         const allOptions4=quiz.map(question=>question.option4)
         return (
             <div>
+                
                 <img className= 'quiz-image' src='./images/quiz.png'></img>
-                <h1>Question {this.state.index+1}</h1>
+                <p><h1>{this.state.message}</h1></p>
+                <h1>Question {this.state.index+1} of {allQuestions.length}</h1>
                 <h1>{allQuestions[this.state.index]}</h1>
                 <form onSubmit = {this.handleSubmit}> 
                     <div className="quizRadio">   
